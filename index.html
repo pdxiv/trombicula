@@ -2,75 +2,13 @@
 <html>
 
 <head>
-  <style>
-    /* Chrome scrollbar styling below */
-    ::-webkit-scrollbar {
-      /* width of the entire scrollbar */
-      width: 12px;
-    }
-
-    ::-webkit-scrollbar-track {
-      /* color of thse tracking area */
-      background: #383934;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      /* color of the scroll thumb */
-      background-color: #555652;
-    }
-
-    body {
-      background-color: #3e3d39;
-    }
-
-    .lotsOfText {
-      overflow-x: hidden;
-      overflow-y: auto;
-      background-color: #282923;
-      color: #f8f8f2;
-    }
-
-    .adventureTextField {
-      font-size: large;
-      width: 40em;
-      height: 10em;
-      font-family: monospace;
-      outline: 0px;
-      word-wrap: break-word;
-      scrollbar-color: #555652 #383934;
-    }
-
-    #adventureTextDivider {
-      background-color: #6d6e6a;
-      height: 1em;
-    }
-
-    #adventureTextOutsideBorder {
-      background-color: #6d6e6a;
-      padding: 1em;
-      float: left;
-    }
-
-    #textBox {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      border: 0;
-      padding: 0;
-      font-family: monospace;
-      word-wrap: break-word;
-      font-size: large;
-      background-color: #282900;
-      color: #f8f8f2;
-      outline: none;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
   <div onclick="focusMethod()" id=adventureTextOutsideBorder>
-    <div onclick="focusMethod()" class="adventureTextField lotsOfText">sed ut perspiciatis, unde omnis iste natus error
+    <div onclick="focusMethod()" class="adventureTextField lotsOfText" id=roomField>sed ut perspiciatis, unde omnis iste
+      natus error
       sit voluptatem sequi
       nesciunt, neque porro quisquam est, qui do lorem ipsum, quia dolor sit amet consectetur adipisci velit, sed quia
       consequuntur magni dolores eos, qui ratione voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia
@@ -88,60 +26,13 @@
       ipsum, quia dolor sit amet consectetur adipisci velit, sed quia consequuntur magni dolores eos, qui ratione
       voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione
       voluptatem.
-      sed ut perspiciatis, unde omnis iste natus error sit voluptatem, quia voluptas sit, aspernatur aut odit aut fugit,
-      sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui do
-      lorem ipsum, quia dolor sit amet consectetur adipisci velit, sed quia consequuntur magni dolores eos, qui ratione
-      voluptatem.
     </div>
-    <div onclick="focusMethod()" class="adventureTextField" id=adventureTextDivider><br /></div>
+    <div onclick="focusMethod()" class="adventureTextField" id=adventureTextDivider></div>
     <div onclick="focusMethod()" class="adventureTextField lotsOfText" id=messageField>message</div>
-    <div onclick="focusMethod()" class="adventureTextField" id=adventureTextDivider><br /></div>
+    <div onclick="focusMethod()" class="adventureTextField" id=adventureTextDivider></div>
     <input type="text" id="textBox" name="fname" spellcheck="false" autocomplete="off" />
   </div>
-
-  <script>
-    var commandHistory = [];
-    var commandHistoryPointer = 0;
-    const inputThang = document.querySelector('#textBox');
-    inputThang.addEventListener('keyup', updateValue);
-
-    function focusMethod() {
-      document.getElementById("textBox").focus();
-    }
-
-    function updateValue(e) {
-      // Register a new input
-      if (e.keyCode === 13) {
-        const enteredText = inputThang.value;
-        inputThang.value = "";
-        const messageField = document.querySelector('#messageField');
-        commandHistory.push(enteredText);
-        messageField.innerHTML += "<br/>" + enteredText;
-        messageField.scrollTop = messageField.scrollHeight; // Scroll to bottom
-        commandHistoryPointer = commandHistory.length;
-      }
-      // Bring up previous command
-      else if (e.code === "ArrowUp") {
-        if (commandHistoryPointer > 0 && commandHistory.length > 0) {
-          commandHistoryPointer--;
-          inputThang.value = commandHistory[commandHistoryPointer];
-        }
-        inputThang.selectionStart = inputThang.value.length;
-        inputThang.selectionEnd = inputThang.value.length;
-
-      }
-      // Bring up later command
-      else if (e.code === "ArrowDown") {
-        if (commandHistoryPointer < commandHistory.length - 1) {
-          commandHistoryPointer++;
-          inputThang.value = commandHistory[commandHistoryPointer];
-        } else {
-          commandHistoryPointer = commandHistory.length;
-          inputThang.value = "";
-        }
-      }
-    }
-  </script>
+  <script type="text/javascript" src="./handleGameData.js"></script>
 </body>
 
 </html>
