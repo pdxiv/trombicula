@@ -7,31 +7,19 @@
 
 <body>
   <div onclick="focusMethod()" id=adventureTextOutsideBorder>
-    <div onclick="focusMethod()" class="adventureTextField lotsOfText" id=roomField>sed ut perspiciatis, unde omnis iste
-      natus error
-      sit voluptatem sequi
-      nesciunt, neque porro quisquam est, qui do lorem ipsum, quia dolor sit amet consectetur adipisci velit, sed quia
-      consequuntur magni dolores eos, qui ratione voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia
-      consequuntur magni dolores eos, qui ratione voluptatem.
-      nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-      eos, qui ratione voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia non numquam eius modi
-      tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptates repudiandae sint et molestiae consequatur?
-      at vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque
-      corrupti, quos dolores eos, qui ratione voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia
-      consequuntur magni dolores eos, qui ratione voluptatem, quia voluptas nulla pariatur?
-      nemo enim ipsam voluptates repudiandae sint et molestiae consequatur, vel illum, qui dolorem eum fugiat, quo
-      voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptate velit
-      esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?
-      quis autem vel eum iure reprehenderit, qui in ea voluptatem sequi nesciunt, neque porro quisquam est, qui do lorem
-      ipsum, quia dolor sit amet consectetur adipisci velit, sed quia consequuntur magni dolores eos, qui ratione
-      voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione
-      voluptatem.
-    </div>
+    <div onclick="focusMethod()" class="adventureTextField lotsOfText" id=roomField></div>
     <div onclick="focusMethod()" class="adventureTextField" id=adventureTextDivider></div>
     <div onclick="focusMethod()" class="adventureTextField lotsOfText" id=messageField>message</div>
     <div onclick="focusMethod()" class="adventureTextField" id=adventureTextDivider></div>
     <input type="text" id="textBox" name="fname" spellcheck="false" autocomplete="off" />
   </div>
+  <script>
+    function focusMethod() {
+      document.getElementById(`textBox`).focus();
+    }
+
+  </script>
+
   <script type="text/javascript" src="./handleGameData.js"></script>
 </body>
 

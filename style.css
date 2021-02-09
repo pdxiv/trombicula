@@ -29,7 +29,7 @@ body {
 .adventureTextField {
   font-size: large;
   width: 40em;
-  height: 10em;
+  height: 20em;
   font-family: monospace;
   outline: 0px;
   word-wrap: break-word;
