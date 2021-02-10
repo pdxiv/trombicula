@@ -1133,10 +1133,10 @@ function load_game_data_file(file_content) {
     var next;
 
     // Define pattern for finding three types of newlines
-    const unix = `(?<![\\x0d])[\\x0a](?![\\x0d])`;
-    const apple = `(?<![\\x0a])[\\x0d](?![\\x0a])`;
-    const dos = `(?<![\\x0d])[\\x0d][\\x0a](?![\\x0a])`;
-    const newline_pattern = new RegExp(`${unix}|${apple}|${dos}`, `g`)
+    const dos = `[\\x0d][\\x0a]`;
+    const unix = `[\\x0a]`;
+    const apple = `[\\x0d]`;
+    const newline_pattern = new RegExp(`${dos}|${unix}|${apple}`, `g`)
 
     // Replace newline in file with whatever the current system uses
     file_content = file_content.replace(newline_pattern, INPUT_RECORD_SEPARATOR);
@@ -1423,10 +1423,11 @@ function load_game(save_filename) {
     }
 
     // Define pattern for finding three types of newlines
-    const unix = `(?<![\\x0d])[\\x0a](?![\\x0d])`;
-    const apple = `(?<![\\x0a])[\\x0d](?![\\x0a])`;
-    const dos = `(?<![\\x0d])[\\x0d][\\x0a](?![\\x0a])`;
-    const newline_pattern = new RegExp(`${unix}|${apple}|${dos}`, `g`)
+    const dos = `[\\x0d][\\x0a]`;
+    const unix = `[\\x0a]`;
+    const apple = `[\\x0d]`;
+    const newline_pattern = new RegExp(`${dos}|${unix}|${apple}`, `g`)
+
 
     var save_data = file_content.split(newline_pattern);
 
