@@ -942,6 +942,8 @@ sure you'll be a good adventurer and figure these things out.
 function print_room_text(message) {
     tagged_message = message.replace(/\n/g, `<br/>`);
     roomField.innerHTML += tagged_message + `<br/>`;
+    var thingToBlink = document.getElementById(`roomField`);
+    blinkTextOnce(thingToBlink);
 }
 
 function print_gui_message(message) {
@@ -1793,4 +1795,11 @@ function get_viable_word_actions() {
 
     }
     return viable_phrases;
+}
+
+function blinkTextOnce(thingToBlink) {
+    thingToBlink.style.animation = 'none';
+    setTimeout(function () {
+        thingToBlink.style.animation = '';
+    }, 10);
 }

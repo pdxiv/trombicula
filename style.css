@@ -60,3 +60,16 @@ body {
   color: #f8f8f2;
   outline: none;
 }
+
+#roomField {
+  animation: blinkingText 1.2s;
+}
+
+@keyframes blinkingText {
+  0% {
+    color: transparent;
+  }
+  100% {
+    color: #f8f8f2;
+  }
+}
