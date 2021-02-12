@@ -1,7 +1,3 @@
-// const fs = require(`fs`)
-// const os = require(`os`)
-// const readline = require(`readline`);
-
 const INPUT_STATE_INTRO = 0;
 const INPUT_STATE_COMMAND = 1;
 const INPUT_STATE_LOAD = 2;
@@ -9,7 +5,6 @@ const INPUT_STATE_SAVE = 3;
 const COMMAND_PROMPT = ``;
 
 const ESCAPE_CHARACTER = String.fromCharCode(27);
-// const INPUT_RECORD_SEPARATOR = os.EOL;
 const INPUT_RECORD_SEPARATOR = "\n";
 const REALLY_BIG_NUMBER = 32767;
 const ACTION_COMMAND_OFFSET = 6;
@@ -45,8 +40,6 @@ const STATUS_FLAGS = 32;
 const MINIMUM_COUNTER_VALUE = -1;
 const DIRECTION_NOUN_TEXT = [`NORTH`, `SOUTH`, `EAST`, `WEST`, `UP`, `DOWN`];
 
-// var ARGV = process.argv.slice(2);
-
 // Declaration of variables and arrays
 var game_file;    // Filename of game data file
 var keyboard_input, keyboard_input_2;
@@ -78,6 +71,9 @@ var command_name = [`GETx`, `DROPx`, `GOTOy`, `x->RM0`, `NIGHT`, `DAY`, `SETz`,
     `CT-1`, `DspCT`, `CT<-n`, `EXRM0`, `EXm,CT`, `CT+n`, `CT-n`, `SAYw`,
     `SAYwCR`, `SAYCR`, `EXc,CR`, `DELAY`,
 ];
+
+// Temporarily holds the info about a room until it is printed out in the gui.
+var roomDescriptionBuffer = "";
 
 // Code for all the action conditions
 var condition_function = [
@@ -468,10 +464,8 @@ var command_function = [
     function () {
         var condition_argument = Array.from(arguments);
         var action_id = condition_argument.shift();
-
         print_gui_message(`Name of save file:`);
         input_state = INPUT_STATE_SAVE;
-        // rl.setPrompt(``);
     },
 
     // 20 EXx,x
@@ -625,20 +619,11 @@ var command_function = [
 
 command_or_display_message = 0;
 
-// Get commandline options
-// [command_in_handle, command_out_handle, flag_debug] = commandline_options();
-
 // Load game data file, if specified
 // Get data from the URL path field thingey
 const url_string = window.location.href;
 const url = new URL(url_string);
 game_file = url.searchParams.get("gameFile");
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 var commandHistory = [];
 var commandHistoryPointer = 0;
@@ -653,10 +638,8 @@ function updateValue(e) {
         inputThang.value = ``;
         const messageField = document.querySelector('#messageField');
         commandHistory.push(enteredText);
-        // messageField.innerHTML += `<br/>` + enteredText;
         messageField.scrollTop = messageField.scrollHeight; // Scroll to bottom        
         commandHistoryPointer = commandHistory.length;
-
         doSomethingWithInput(enteredText);
     }
     // Bring up previous command
@@ -667,7 +650,6 @@ function updateValue(e) {
         }
         inputThang.selectionStart = inputThang.value.length;
         inputThang.selectionEnd = inputThang.value.length;
-
     }
     // Bring up later command
     else if (e.code === `ArrowDown`) {
@@ -681,27 +663,11 @@ function updateValue(e) {
     }
 }
 
-// Dummy "game logic"
 function doSomethingWithInput(text) {
-    /*
-    const regex = /^ *go\s+(\w+)/;
-    const found = text.match(regex);
-    if (found !== null) {
-        const roomField = document.querySelector('#roomField');
-        roomField.innerHTML = found[1];
-    }
-    */
     get_input(text)
 }
-////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
 
 if (game_file.length > 0) {
-    // game_file = ARGV.shift();
     (async () => {
         let response = await new Promise(resolve => {
             var gameDataRequest = new XMLHttpRequest();
@@ -733,19 +699,10 @@ function initialize_game_values() {
     alternate_counter[COUNTER_TIME_LIMIT] = time_limit; // Set time limit counter
 }
 
-/*
-// Initialize keyboard input callback/loop
-var rl = readline.createInterface({
-    input: command_in_handle,
-    output: process.stdout,
-    prompt: COMMAND_PROMPT
-});
-*/
 
-// rl.on(`line`, (line) => get_input(line)).on(`close`, () => say_goodbye());
+
 if (input_state === INPUT_STATE_INTRO) {
     show_intro(); // Show intro
-    // rl.setPrompt(``);
 }
 
 // Main keyboard command input callback
@@ -758,51 +715,34 @@ function get_input(line) {
         case INPUT_STATE_INTRO:
             cls_message();
             input_state = INPUT_STATE_COMMAND;
-            // rl.setPrompt(COMMAND_PROMPT);
             show_room_description(); // Show room
             found_word[0] = 0;
             run_actions(found_word[0], 0);
-            print_gui_message(`Tell me what to do`);
-            // rl.prompt();
             break;
         case INPUT_STATE_COMMAND:
             keyboard_input_2 = line.trim();
             process_input();
-            // Loading or saving will change "input_state". Only print "Tell me what to do" if we're still in the "command" state.
-            if (input_state === INPUT_STATE_COMMAND) {
-                print_gui_message(`Tell me what to do`);
-            }
-            // rl.prompt();
             break;
         case INPUT_STATE_LOAD:
-            // rl.setPrompt(COMMAND_PROMPT);
             if (load_game(line)) {
                 show_room_description();
             }
-            print_gui_message(`Tell me what to do`);
-            // rl.prompt();
             input_state = INPUT_STATE_COMMAND;
             break;
         case INPUT_STATE_SAVE:
-            // rl.setPrompt(COMMAND_PROMPT);
             save_game(line);
-            print_gui_message(`Tell me what to do`);
-            // rl.prompt();
             input_state = INPUT_STATE_COMMAND;
             break;
-
     }
     print_debug(status_flag.join(` `), 37);
     print_debug(alternate_counter.join(` `), 37);
 }
 
 function process_input() {
-    print_gui_message(``);
     var load_game_pattern = new RegExp(`^\\s*LOAD\\s*GAME`, `i`)
     if (load_game_pattern.test(keyboard_input_2)) {
         print_gui_message(`Name of save file:`);
         input_state = INPUT_STATE_LOAD;
-        // rl.setPrompt(``);
     } else {
         extract_words();
 
@@ -835,59 +775,6 @@ Scott Adams adventure game interpreter
     process.exit(0);
 }
 
-/*
-function commandline_options() {
-    var in_handle;
-    var out_handle;
-    var return_value = [];    // Return input and output handles as an array
-    var option_variable = {};
-
-    get_options({
-        'i|input=s': `input`,
-        'o|output=s': `output`,
-        'd|debug': `flag_debug`,
-        'h|help': `flag_help`
-    }, option_variable);
-
-    if (option_variable.flag_help) {
-        commandline_help();
-    }
-    // If no command input file defined, use STDIN for input
-    if (typeof option_variable.input === `undefined`) {
-        in_handle = process.stdin;
-    }
-    else {
-        if (fs.existsSync(option_variable.input)) {
-            try {
-                in_handle = fs.createReadStream(option_variable.input);
-            } catch (err) {
-                console.error(err)
-                process.exit(1);
-            }
-        }
-        else {
-            console.error(`file \"${option_variable.input}\" not found`)
-            process.exit(1);
-        }
-    }
-    return_value.push(in_handle);
-
-    // If command output file defined, write output to it
-    if (typeof option_variable.output !== `undefined`) {
-        try {
-            out_handle = fs.openSync(option_variable.output, `w`);
-        } catch (err) {
-            console.error(err)
-            process.exit(1);
-        }
-    }
-
-    return_value.push(out_handle);
-    return_value.push(option_variable.flag_debug);
-    return return_value;
-}
-*/
-
 function strip_noun_from_object_description(object_number) {
     var stripped_text = object_description[object_number];
     var re = new RegExp(`\/.*\/`);
@@ -913,7 +800,7 @@ function check_and_change_light_source_status() {
 }
 
 function say_goodbye() {
-    print_gui_message('Have a great day!');
+    print_gui_message(`Have a great day!`);
     process.exit(0);
 }
 
@@ -939,11 +826,19 @@ sure you'll be a good adventurer and figure these things out.
     return 1;
 }
 
-function print_room_text(message) {
-    tagged_message = message.replace(/\n/g, `<br/>`);
-    roomField.innerHTML += tagged_message + `<br/>`;
-    var thingToBlink = document.getElementById(`roomField`);
-    blinkTextOnce(thingToBlink);
+function compile_room_text(message) {
+    tagged_message = message.replace(/\n/g, `<br>`);
+    roomDescriptionBuffer += tagged_message + `<br>`;
+}
+
+function print_room_text() {
+    // Text should only blink if something's changed in the room description    
+    if (roomField.innerHTML != roomDescriptionBuffer) {
+        var thingToBlink = document.getElementById(`roomField`);
+        blinkTextOnce(thingToBlink);
+        roomField.innerHTML = roomDescriptionBuffer;
+    }
+    roomDescriptionBuffer = ``;
 }
 
 function print_gui_message(message) {
@@ -989,9 +884,8 @@ function show_room_description() {
             object++;
         }
     }
-    cls_room();
-    print_room_text(room_text_line);
-    print_room_text(text_of_objects_in_room);
+    compile_room_text(room_text_line);
+    compile_room_text(text_of_objects_in_room);
 
     // List exits
     var exit_found = FALSE;
@@ -1010,60 +904,11 @@ function show_room_description() {
             direction++;
         }
     }
-
-    print_room_text(`${exit_text_line}\n`);
+    compile_room_text(`${exit_text_line}\n`);
+    print_room_text();
     return 1;
 }
 
-/*
-// Emulate basic "GetOpt" functionality from Perl
-function get_options(option_template, option_variable) {
-    for (var declaration_candidate in option_template) {
-        var declaration_pattern = new RegExp(`^(\\w+(?:\\|\\w+)*)(?:=([si]))?$`);
-        var declaration_field = declaration_pattern.exec(declaration_candidate);
-        if (declaration_field === null) {
-            process.exit(1); // If we have declared an invalid pattern, it's best to stop.
-        }
-
-        var option_pattern = new RegExp(`(?:(?<=^-)|(?<=^--))(?:${declaration_field[1]})$`);
-        var new_argv = [];
-
-        var skip_argument = false; // Skip the next argument if it was used as a parameter for an option
-        for (commandline_index in ARGV) {
-            commandline_argument = ARGV[commandline_index]
-            if (option_pattern.exec(commandline_argument) !== null) {
-                if (typeof declaration_field[2] === `undefined`) { // Boolean
-                    option_variable[option_template[declaration_candidate]] = true;
-                } else if (declaration_field[2] === `i`) { // Integer
-                    var parameter_index = Number(commandline_index) + 1;
-                    if (typeof ARGV[parameter_index] !== `undefined`) { // Check that next value actually exists
-                        number_candidate = ARGV[parameter_index];
-                        var integer_pattern = new RegExp(`^-?\\d+$`);
-                        if (integer_pattern.exec(number_candidate) !== null) {
-                            option_variable[option_template[declaration_candidate]] = Number(number_candidate);
-                        } else { option_variable[option_template[declaration_candidate]] = 0; }
-                        skip_argument = true;
-                    }
-                } else if (declaration_field[2] === `s`) { // String
-                    var parameter_index = Number(commandline_index) + 1;
-                    if (typeof ARGV[parameter_index] !== `undefined`) { // Check that next value actually exists
-                        option_variable[option_template[declaration_candidate]] = ARGV[parameter_index];
-                        skip_argument = true;
-                    }
-                } else {
-                    process.exit(1); // If we have declared an invalid pattern, it's best to stop.
-                }
-            } else if (skip_argument) {
-                skip_argument = false;
-            }
-            else {
-                new_argv.push(commandline_argument);
-            }
-        };
-        ARGV = new_argv;
-    }
-}
-*/
 function handle_go_verb() {
     var room_dark = status_flag[FLAG_NIGHT];
     if (room_dark) {
@@ -1092,7 +937,10 @@ function handle_go_verb() {
         }
     }
     current_room = direction_destination;
+    var thingToBlink = document.getElementById(`roomField`);
+    blinkTextOnce(thingToBlink);
     show_room_description();    // Show room description
+    print_gui_message(`OK`);
     return 1;
 }
 
@@ -1303,11 +1151,6 @@ function load_game_data_file(file_content) {
     return 1;
 }
 
-function cls_room() {
-    roomField.innerHTML = ``;
-    return TRUE;
-}
-
 function cls_message() {
     messageField.innerHTML = ``;
     return TRUE;
@@ -1403,7 +1246,7 @@ function save_game(save_filename) {
     try {
         file_content = fs.writeFileSync(save_filename, save_data.join(INPUT_RECORD_SEPARATOR));
     } catch (e) {
-        print_gui_message('Error:', e.stack);
+        print_gui_message(`Error:`, e.stack);
         return FALSE;
     }
     return TRUE;
@@ -1416,7 +1259,7 @@ function load_game(save_filename) {
         try {
             file_content = fs.readFileSync(save_filename, `utf8`);
         } catch (e) {
-            print_gui_message('Error:', e.stack);
+            print_gui_message(`Error:`, e.stack);
             return FALSE;
         }
     } else {
@@ -1798,8 +1641,8 @@ function get_viable_word_actions() {
 }
 
 function blinkTextOnce(thingToBlink) {
-    thingToBlink.style.animation = 'none';
+    thingToBlink.style.animation = `none`;
     setTimeout(function () {
-        thingToBlink.style.animation = '';
+        thingToBlink.style.animation = ``;
     }, 10);
 }
