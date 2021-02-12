@@ -1,3 +1,13 @@
+:root {
+  --body-background-color: #3e3d39;
+  --framing-color: #6d6e6a;
+  --scroll-thumb-color: #555652;
+  --scroll-track-color: #383934;
+  --text-background-color: #282923;
+  --text-color: #f8f8f2;
+  --textbox-background-color: #282900;
+}
+
 /* Chrome scrollbar styling below */
 
 ::-webkit-scrollbar {
@@ -7,23 +17,23 @@
 
 ::-webkit-scrollbar-track {
   /* color of the tracking area */
-  background: #383934;
+  background: var(--scroll-track-color);
 }
 
 ::-webkit-scrollbar-thumb {
   /* color of the scroll thumb */
-  background-color: #555652;
+  background-color: var(--scroll-thumb-color);
 }
 
 body {
-  background-color: #3e3d39;
+  background-color: var(--body-background-color);
 }
 
 .lotsOfText {
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #282923;
-  color: #f8f8f2;
+  background-color: var(--text-background-color);
+  color: var(--text-color);
 }
 
 .adventureTextField {
@@ -33,16 +43,16 @@ body {
   font-family: monospace;
   outline: 0px;
   word-wrap: break-word;
-  scrollbar-color: #555652 #383934;
+  scrollbar-color: var(--scroll-thumb-color) var(--scroll-track-color);
 }
 
 #adventureTextDivider {
-  background-color: #6d6e6a;
+  background-color: var(--framing-color);
   height: 0.75em;
 }
 
 #adventureTextOutsideBorder {
-  background-color: #6d6e6a;
+  background-color: var(--framing-color);
   padding: 0.75em;
   float: left;
 }
@@ -56,8 +66,8 @@ body {
   font-family: monospace;
   word-wrap: break-word;
   font-size: large;
-  background-color: #282900;
-  color: #f8f8f2;
+  background-color: var(--textbox-background-color);
+  color: var(--text-color);
   outline: none;
 }
 
@@ -70,6 +80,6 @@ body {
     color: transparent;
   }
   100% {
-    color: #f8f8f2;
+    color: var(--text-color);
   }
 }
