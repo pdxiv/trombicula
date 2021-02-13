@@ -1,11 +1,12 @@
 :root {
-  --body-background-color: #3e3d39;
-  --framing-color: #6d6e6a;
-  --scroll-thumb-color: #555652;
-  --scroll-track-color: #383934;
-  --text-background-color: #282923;
-  --text-color: #f8f8f2;
-  --textbox-background-color: #282900;
+  --body-background-color: #3c3c3c;
+  --framing-color: #6c6c6c;
+  --room-field-bg-color: #263026;
+  --scroll-thumb-color: #545454;
+  --scroll-track-color: #373737;
+  --text-background-color: #262626;
+  --text-color: #f6f6f6;
+  --textbox-background-color: #262640;
 }
 
 /* Chrome scrollbar styling below */
@@ -73,6 +74,7 @@ body {
 
 #roomField {
   animation: blinkingText 1.2s;
+  background-color: var(--room-field-bg-color);
 }
 
 @keyframes blinkingText {
