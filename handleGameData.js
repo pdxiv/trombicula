@@ -672,6 +672,7 @@ if (game_file.length > 0) {
         let response = await new Promise(resolve => {
             var gameDataRequest = new XMLHttpRequest();
             gameDataRequest.open("GET", game_file, true);
+            gameDataRequest.overrideMimeType("text/html");
             gameDataRequest.onload = function (e) {
                 resolve(gameDataRequest.response);
             };
