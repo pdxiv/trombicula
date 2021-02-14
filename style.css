@@ -6,6 +6,7 @@
   --scroll-track-color: #373737;
   --text-background-color: #262626;
   --text-color: #f6f6f6;
+  --text-historical-color: #a0a0a0;
   --textbox-background-color: #262640;
 }
 
@@ -31,10 +32,13 @@ body {
 }
 
 .lotsOfText {
-  overflow-x: hidden;
+  /* white-space: pre; */
+  white-space: pre-wrap;
+  /* overflow-x: hidden; */
   overflow-y: auto;
   background-color: var(--text-background-color);
   color: var(--text-color);
+  overflow-wrap: break-word;
 }
 
 .adventureTextField {
@@ -45,6 +49,10 @@ body {
   outline: 0px;
   word-wrap: break-word;
   scrollbar-color: var(--scroll-thumb-color) var(--scroll-track-color);
+}
+
+#historicalText {
+  color: var(--text-historical-color);
 }
 
 #adventureTextDivider {
