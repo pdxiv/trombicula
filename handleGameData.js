@@ -2,6 +2,7 @@ const INPUT_STATE_INTRO = 0;
 const INPUT_STATE_COMMAND = 1;
 const INPUT_STATE_LOAD = 2;
 const INPUT_STATE_SAVE = 3;
+const INPUT_STATE_FINISHED = 4;
 const COMMAND_PROMPT = ``;
 
 const ESCAPE_CHARACTER = String.fromCharCode(27);
@@ -74,6 +75,7 @@ var command_name = [`GETx`, `DROPx`, `GOTOy`, `x->RM0`, `NIGHT`, `DAY`, `SETz`,
 
 // Temporarily holds the info about a room until it is printed out in the gui.
 var roomDescriptionBuffer = "";
+var gameFinished = false;
 
 // Code for all the action conditions
 var condition_function = [
@@ -363,7 +365,9 @@ var command_function = [
     function () {
         var condition_argument = Array.from(arguments);
         var action_id = condition_argument.shift();
-        process.exit(0);
+        print_gui_message("Game has ended. Press Enter to start again!");
+        input_state = INPUT_STATE_FINISHED;
+        gameFinished = true;
     },
 
     // 12 DspRM
@@ -736,6 +740,14 @@ function get_input(line) {
             save_game(line);
             input_state = INPUT_STATE_COMMAND;
             print_gui_message(`OK`);
+            break;
+        case INPUT_STATE_FINISHED:
+            input_state = INPUT_STATE_COMMAND;
+            gameFinished = false;
+            initialize_game_values();
+            show_room_description();
+            found_word[0] = 0;
+            run_actions(found_word[0], 0);
             break;
     }
     print_debug(status_flag.join(` `), 37);
@@ -1343,7 +1355,7 @@ function run_actions(input_verb, input_noun) {
         }
 
         // AUT action
-        if (input_verb === 0) {
+        if (input_verb === 0 && input_state !== INPUT_STATE_FINISHED) {
             if ((action_verb === 0) && (action_noun > 0)) {
                 print_debug(`Action ${current_action}. verb ${action_verb}, noun ${action_noun} (CONT ${cont_flag}), \"${action_description[current_action]}\"`, 31); cont_flag = FALSE;
                 if ((Math.floor(Math.random() * PERCENT_UNITS)) <= action_noun) {
