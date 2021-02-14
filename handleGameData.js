@@ -853,8 +853,9 @@ function show_room_description() {
         // Check that item #9 (light source) is either in inventory or current room
         if (object_location[LIGHT_SOURCE_ID] != ROOM_INVENTORY) {
             if (object_location[LIGHT_SOURCE_ID] != current_room) {
-                print_gui_message(`I can't see: Its too dark.`);
-                return;
+                compile_room_text(`I can't see: Its too dark.`);
+                print_room_text();
+                return 1;
             }
         }
     }
