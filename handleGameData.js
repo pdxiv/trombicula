@@ -754,7 +754,7 @@ function process_input() {
         if ((found_word[0] === VERB_CARRY) || (found_word[0] === VERB_DROP)) {
             undefined_words_found = FALSE;
         }
-
+        color_old_text_messages();
         if (undefined_words_found) {
             print_gui_message(`You use word(s) i don't know`);
         }
@@ -1307,9 +1307,18 @@ function load_game(save_filename) {
     return TRUE;
 }
 
+function color_old_text_messages() {
+    const messageField = document.querySelector('#messageField');
+    var textToProcess = messageField.innerHTML;
+    textToProcess = textToProcess.replace(/<\/div[^>]*>/g, ``);
+    textToProcess = `<div id="historicalText">` + textToProcess + `</div>`;
+    messageField.innerHTML = textToProcess;
+}
+
 function run_actions(input_verb, input_noun) {
     // If verb is 'GO' and noun is a direction
     if (input_verb === VERB_GO && input_noun <= DIRECTION_NOUNS) {
+        color_old_text_messages();
         handle_go_verb();
         return 1;
     }
