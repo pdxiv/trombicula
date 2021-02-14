@@ -757,10 +757,12 @@ function process_input() {
         }
         else {
             run_actions(found_word[0], found_word[1]);
-            check_and_change_light_source_status();
-            found_word[0] = 0;
-            run_actions(found_word[0], found_word[1]);
-            show_room_description();
+            if (input_state !== INPUT_STATE_SAVE) {
+                check_and_change_light_source_status();
+                found_word[0] = 0;
+                run_actions(found_word[0], found_word[1]);
+                show_room_description();
+            }
         }
     }
 }
@@ -1247,7 +1249,7 @@ function save_game(save_filename) {
     }
 
     try {
-        file_content = fs.writeFileSync(save_filename, save_data.join(INPUT_RECORD_SEPARATOR));
+        localStorage.setItem(game_file + `_` + save_filename, JSON.stringify(save_data));
     } catch (e) {
         print_gui_message(`Error:`, e.stack);
         return FALSE;
@@ -1256,11 +1258,9 @@ function save_game(save_filename) {
 }
 
 function load_game(save_filename) {
-    var file_content;
-
-    if (fs.existsSync(save_filename)) {
+    if (localStorage.getItem(game_file + `_` + save_filename) !== null) {
         try {
-            file_content = fs.readFileSync(save_filename, `utf8`);
+            var save_data = JSON.parse(localStorage.getItem(game_file + `_` + save_filename));
         } catch (e) {
             print_gui_message(`Error:`, e.stack);
             return FALSE;
@@ -1269,15 +1269,6 @@ function load_game(save_filename) {
         print_gui_message(`Couldn't load "${save_filename}". Doesn't exist!`);
         return FALSE;
     }
-
-    // Define pattern for finding three types of newlines
-    const dos = `[\\x0d][\\x0a]`;
-    const unix = `[\\x0a]`;
-    const apple = `[\\x0d]`;
-    const newline_pattern = new RegExp(`${dos}|${unix}|${apple}`, `g`)
-
-
-    var save_data = file_content.split(newline_pattern);
 
     // A bit of extra precaution
     var save_adventure_version = Number(save_data.shift());
