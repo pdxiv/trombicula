@@ -744,6 +744,7 @@ function get_input(line) {
         case INPUT_STATE_FINISHED:
             input_state = INPUT_STATE_COMMAND;
             gameFinished = false;
+            cls_message();
             initialize_game_values();
             show_room_description();
             found_word[0] = 0;
