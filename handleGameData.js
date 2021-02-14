@@ -1365,22 +1365,23 @@ function run_actions(input_verb, input_noun) {
                         if (evaluate_conditions(current_action)) {
                             execute_commands(current_action);
                             word_action_done = TRUE;
-                            if (cont_flag === FALSE) { return 1; }
+                            if (cont_flag === FALSE) { return TRUE; }
                         }
                     } else if (action_noun === input_noun) {
                         found_word = 1;
                         if (evaluate_conditions(current_action)) {
                             execute_commands(current_action);
                             word_action_done = TRUE;
-                            if (cont_flag === FALSE) { return 1; }
+                            if (cont_flag === FALSE) { return TRUE; }
                         }
                     }
                 }
             }
         }
+        if (gameFinished) { return TRUE; }
     }
 
-    if (input_verb === 0) { return 1; }
+    if (input_verb === 0) { return TRUE; }
 
     if (!word_action_done) {
         if (handle_carry_and_drop_verb(input_verb, input_noun)) {
