@@ -809,22 +809,19 @@ function say_goodbye() {
 
 function show_intro() {
     cls_message();
-    var intro_message = `                 *** Welcome ***
+    var intro_message = `                       *** Welcome ***
 
- Unless told differently you must find *TREASURES*
-and-return-them-to-their-proper--place!
+Give me English commands consisting of a verb and a noun.
+    
+Some examples:
+to find out what you are carrying you can say: TAKE INVENTORY
+to go into a hole you can say: GO HOLE
+to save the current game: SAVE GAME
+to load a saved game: LOAD GAME
 
-I'm your puppet. Give me english commands that
-consist of a noun and verb. Some examples...
+                      Happy adventures!
 
-To find out what you're carrying you might say: TAKE INVENTORY
-to go into a hole you might say: GO HOLE
-to save current game: SAVE GAME
-
-You will at times need special items to do things: But I'm
-sure you'll be a good adventurer and figure these things out.
-
-     Happy adventuring... Hit enter to start`
+... Press Enter to start`
     print_gui_message(intro_message);
     return 1;
 }
