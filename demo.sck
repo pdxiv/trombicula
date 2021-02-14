@@ -1,0 +1,59 @@
+# 34 rooms, 66 items, 170 actions
+# 76 messages, 13 treasures, 70 verbs/nouns
+ident 1
+version 416
+wordlen 3
+maxload 6
+lighttime 125
+unknown1 5953
+unknown2 819
+start Street
+
+noungroup SHOP ANTIQUE STORE
+verbgroup EXAMINE X
+verbgroup GO ENTER
+
+room Street "deserted street outside my house"
+exit north Outside_Shop
+
+room Outside_Shop "*I'm outside a seemingly deserted antique shop"
+exit south Street
+
+room Underworld "*I'm in `the world after this one`. The word `REVIVE` hovers in the air in official-looking lettering."
+
+action SAY FLARBENFOOP:    
+    print "OK"
+    swap_room
+    set_flag 1
+	die
+
+action say:
+   print "Mmm, no"
+
+action revive when !flag 1
+    print "I can't revive if I'm alive!"
+
+action revive when flag 1
+    clear_flag 1
+    swap_room
+    print "I live. Again."
+
+action examine shop when at Outside_Shop
+    print "The windows of the grey single-storey shop are grimy with dust in a way that would exceed even overly eager attempts at creating ambience. I can't remember ever seeing it open, but then again I can't remember being very interested. This is the sort of town where people aren't afraid to leave the doors to their homes unlocked, but the door of the shop is no doubt securely locked, or possibly even permanently sealed shut with rust and rot. 
+
+A faded and out-of-place work of graffitti is scribbled on the shop wall. It SEEMS to spell out the unlikely word `FLARBENFOOP`."
+
+action FLARBENFOOP:
+    print "I wouldn't even know where to begin doing that..."
+
+action examine house when at Street
+    print "It's my house, a small off-white two storey clapboard affair. It's part of the increasingly select club of houses in town that still house people, and are still somewhat suitable for the purpose. I would say that it needs a new coat of paint, but one of the gables is starting to sag precariously and more extreme measures are probably in order."
+
+action go house when at Street
+    print "No. I just got outside and it's good to get away from the smell of black mold and rotting wood for a while."
+
+action look when at Street
+    print "This is my part of the street. Wild tufts of long-unmowed grass surround the sides of the road. On the left is my house. The street's cracked asphalt continues NORTH into what passes for the business district of town."
+
+action look when at Outside_Shop
+    print "This is technically the beginning of the downtown area of town. To the right is the old antique store. I almost have a hard time imagining that anything inside the store can be as antique as the store itself."

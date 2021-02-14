@@ -1,0 +1,78 @@
+5953
+-1
+9
+18
+3
+6
+1
+0
+3
+125
+10
+1
+
+457 20 0 0 0 0 230 8761
+450 0 0 0 0 0 300 0
+600 29 0 0 0 0 450 0
+600 28 20 0 0 0 9080 600
+758 44 0 0 0 0 750 0
+1050 0 0 0 0 0 900 0
+761 24 0 0 0 0 1050 0
+161 24 0 0 0 0 1200 0
+1200 24 0 0 0 0 1350 0
+1200 44 0 0 0 0 1500 0
+
+"AUT" "ANY"
+"GO" "NOR"
+"*ENT" "SOU"
+"SAY" "EAS"
+"REV" "WES"
+"EXA" "UP"
+"*X" "DOW"
+"FLA" "FLA"
+"LOO" "SHO"
+"" "*ANT"
+"GET" "*STO"
+"" "HOU"
+"" ""
+"" ""
+"" ""
+"" ""
+"" ""
+"" ""
+"DRO" ""
+
+0 0 0 0 0 0 ""
+2 0 0 0 0 0 "deserted street outside my house"
+0 1 0 0 0 0 "*I'm outside a seemingly deserted antique shop"
+0 0 0 0 0 0 "*I'm in `the world after this one`. The word `REVIVE` hovers in the air in official-looking lettering."
+
+""
+"OK"
+"Mmm, no"
+"I can't revive if I'm alive!"
+"I live. Again."
+"The windows of the grey single-storey shop are grimy with dust in a way that would exceed even overly eager attempts at creating ambience. I can't remember ever seeing it open, but then again I can't remember being very interested. This is the sort of town where people aren't afraid to leave the doors to their homes unlocked, but the door of the shop is no doubt securely locked, or possibly even permanently sealed shut with rust and rot.
+
+A faded and out-of-place work of graffitti is scribbled on the shop wall. It SEEMS to spell out the unlikely word `FLARBENFOOP`."
+"I wouldn't even know where to begin doing that..."
+"It's my house, a small off-white two storey clapboard affair. It's part of the increasingly select club of houses in town that still house people, and are still somewhat suitable for the purpose. I would say that it needs a new coat of paint, but one of the gables is starting to sag precariously and more extreme measures are probably in order."
+"No. I just got outside and it's good to get away from the smell of black mold and rotting wood for a while."
+"This is my part of the street. Wild tufts of long-unmowed grass surround the sides of the road. On the left is my house. The street's cracked asphalt continues NORTH into what passes for the business district of town."
+"This is technically the beginning of the downtown area of town. To the right is the old antique store. I almost have a hard time imagining that anything inside the store can be as antique as the store itself."
+
+
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+
+416
+1
+819
