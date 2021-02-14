@@ -1154,6 +1154,7 @@ function load_game_data_file(file_content) {
 }
 
 function cls_message() {
+    roomField.innerHTML = ``;
     messageField.innerHTML = ``;
     return TRUE;
 }
