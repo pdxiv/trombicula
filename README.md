@@ -6,7 +6,7 @@ Trombicula is a web-based player/interpreter for text adventure games in the Sco
 
 ## How to use
 
-To run this on a web server, simply put the `index.html` , `style.css` and `handleGameData.js` in a directory together with a compatible game data file.
+To run this on a web server, simply put the `index.html` , `style.css` and `handleGameData.js` in a directory together with a compatible game data file. The name of the game data file must be specified with the `gameFile` argument in the URL, like this: `https://www.mysuperawesomewebserver.com/index.html?gameFile=adv01.dat` .
 
 To test this locally, you can use Python as a local web server in the local directory by using `python -m http.server` or `python3 -m http.server` (whichever works best), and navigating to `http://localhost:8000/?gameFile=adv01.dat` in a web browser.
 
