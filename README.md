@@ -14,7 +14,7 @@ To test this locally, you can use Python as a local web server in the local dire
 
 | Filename | Description |
 | -------- | ----------- |
-| README.md | The file you're currently reading |
+| README.md | The file you're currently reading from |
 | handleGameData.js | Most of the adventure game logic |
 | index.html | The main HTML file that's needed to show the GUI |
 | style.css  | CSS file that contains colors and styling information |
