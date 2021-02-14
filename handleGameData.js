@@ -464,7 +464,7 @@ var command_function = [
     function () {
         var condition_argument = Array.from(arguments);
         var action_id = condition_argument.shift();
-        print_gui_message(`Name of save file:`);
+        print_gui_message(`Name of save:`);
         input_state = INPUT_STATE_SAVE;
     },
 
@@ -726,13 +726,16 @@ function get_input(line) {
             break;
         case INPUT_STATE_LOAD:
             if (load_game(line)) {
+                cls_message();
                 show_room_description();
             }
             input_state = INPUT_STATE_COMMAND;
+            print_gui_message(`OK`);
             break;
         case INPUT_STATE_SAVE:
             save_game(line);
             input_state = INPUT_STATE_COMMAND;
+            print_gui_message(`OK`);
             break;
     }
     print_debug(status_flag.join(` `), 37);
@@ -742,7 +745,7 @@ function get_input(line) {
 function process_input() {
     var load_game_pattern = new RegExp(`^\\s*LOAD\\s*GAME`, `i`)
     if (load_game_pattern.test(keyboard_input_2)) {
-        print_gui_message(`Name of save file:`);
+        print_gui_message(`Name of save:`);
         input_state = INPUT_STATE_LOAD;
     } else {
         extract_words();
@@ -757,7 +760,7 @@ function process_input() {
         }
         else {
             run_actions(found_word[0], found_word[1]);
-            if (input_state !== INPUT_STATE_SAVE) {
+            if (input_state === INPUT_STATE_COMMAND) {
                 check_and_change_light_source_status();
                 found_word[0] = 0;
                 run_actions(found_word[0], found_word[1]);
