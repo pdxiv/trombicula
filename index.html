@@ -17,6 +17,9 @@
     function focusMethod() {
       document.getElementById(`textBox`).focus();
     }
+
+    // Scroll to bottom when window is resized, to make mobile phone usage more pleasant
+    window.addEventListener("resize", function () { messageField.scrollTop = messageField.scrollHeight; });
   </script>
   <script type="text/javascript" src="./handleGameData.js"></script>
 </body>
