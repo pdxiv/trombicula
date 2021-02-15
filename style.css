@@ -8,6 +8,9 @@
   --text-color: #f6f6f6;
   --text-historical-color: #a0a0a0;
   --textbox-background-color: #262640;
+  --border-width: 0.75em;
+  --box-height: 36em;
+  --box-width: 35em;
 }
 
 /* Chrome scrollbar styling below */
@@ -28,53 +31,54 @@
 }
 
 body {
+  margin: 0vh;
   background-color: var(--body-background-color);
 }
 
-.lotsOfText {
-  /* white-space: pre; */
+.flex-container {
+  display: flex;
+  background-color: var(--framing-color);
+  flex-direction: column;
+  padding: var(--border-width);
+  height: calc(100vh - 2 * var(--border-width));
+  max-height: var(--box-height);
+  max-width: var(--box-width);
+}
+
+.stretchy {
+  flex-grow: 1;
+  background-color: #f1f1f1;
+  /* font-size: large; */
+  height: 100em;
+  font-family: monospace;
+  outline: 0px;
+  word-wrap: break-word;
+  scrollbar-color: var(--scroll-thumb-color) var(--scroll-track-color);
   white-space: pre-wrap;
-  /* overflow-x: hidden; */
   overflow-y: auto;
   background-color: var(--text-background-color);
   color: var(--text-color);
   overflow-wrap: break-word;
 }
 
-.adventureTextField {
-  font-size: large;
-  width: 40em;
-  height: 20em;
-  font-family: monospace;
-  outline: 0px;
-  word-wrap: break-word;
-  scrollbar-color: var(--scroll-thumb-color) var(--scroll-track-color);
-}
-
 #historicalText {
   color: var(--text-historical-color);
 }
 
-#adventureTextDivider {
+.divider {
   background-color: var(--framing-color);
-  height: 0.75em;
-}
-
-#adventureTextOutsideBorder {
-  background-color: var(--framing-color);
-  padding: 0.75em;
-  float: left;
+  height: var(--border-width);
+  flex-shrink: 0;
 }
 
 #textBox {
-  width: 100%;
-  height: 100%;
+  flex-grow: 0;
   margin: 0;
   border: 0;
   padding: 0;
   font-family: monospace;
   word-wrap: break-word;
-  font-size: large;
+  /* font-size: large; */
   background-color: var(--textbox-background-color);
   color: var(--text-color);
   outline: none;

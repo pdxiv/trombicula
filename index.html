@@ -6,20 +6,18 @@
 </head>
 
 <body onload="focusMethod()">
-  <div onclick="focusMethod()" id=adventureTextOutsideBorder>
-    <div onclick="focusMethod()" class="adventureTextField lotsOfText" id=roomField></div>
-    <div onclick="focusMethod()" class="adventureTextField" id=adventureTextDivider></div>
-    <div onclick="focusMethod()" class="adventureTextField lotsOfText" id=messageField>message</div>
-    <div onclick="focusMethod()" class="adventureTextField" id=adventureTextDivider></div>
-    <input type="text" id="textBox" name="fname" spellcheck="false" autocomplete="off" />
+  <div class="flex-container">
+    <div onclick="focusMethod()" class="stretchy" id="roomField"></div>
+    <div onclick="focusMethod()" class="divider"></div>
+    <div onclick="focusMethod()" class="stretchy" id="messageField"></div>
+    <div onclick="focusMethod()" class="divider"></div>
+    <input type="text" id="textBox" spellcheck="false" autocomplete="off" />
   </div>
   <script>
     function focusMethod() {
       document.getElementById(`textBox`).focus();
     }
-
   </script>
-
   <script type="text/javascript" src="./handleGameData.js"></script>
 </body>
 
